@@ -1,0 +1,32 @@
+[
+  {
+    "jobId": "St5D",
+    "companyName": "Handy Dandy",
+    "salary": "$50,000",
+    "earliestInterview": "06/24/2024"
+  },
+  {
+    "jobId": "T69q",
+    "companyName": "Fries Alive",
+    "salary": "$45,000",
+    "earliestInterview": "06/16/2024"
+  },
+  {
+    "jobId": "rO9W",
+    "companyName": "Dropping Gems",
+    "salary": "$95,000",
+    "earliestInterview": "07/01/2024"
+  },
+  {
+    "jobId": "LNdV",
+    "companyName": "Jared Jewels",
+    "salary": "$20,000.00",
+    "earliestInterview": "tbd"
+  },
+  {
+    "jobId": "2T2X",
+    "companyName": "Mcdonalds",
+    "salary": "80,000.00",
+    "earliestInterview": "10/12/2024"
+  }
+]
