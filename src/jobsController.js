@@ -1,17 +1,29 @@
-const { nanoid } = require("nanoid")
+import { nanoid } from "nanoid";
 const inform = console.log;
+import Table from "cli-table";
+import chalk from "chalk";
+
+let table = new Table({
+    chars: {
+         'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
+           , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝', 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼', 'right': '║' , 'right-mid': '╢' , 'middle': '│' 
+    }
+});
+table.push([chalk.red("Id"), chalk.red("Company"), chalk.red("Position"), chalk.red("Salary"), chalk.red("Earliest Interview")]);
 
 // shows all the jobs
 const index = (jobs) => {
-    return jobs.map(job => `${job.jobId}: ${job.companyName}`)
+    jobs.map(job => table.push([job.jobId, job.companyName, job.position, job.salary, job.earliestInterview]));
+    return table.toString();
 }
 
 // create a job object
-const create = (jobs, jobName, salary, earliestInterview) => {
+const create = (jobs, jobName, position, salary, earliestInterview) => {
     const job = {
         jobId: nanoid(4),
-        companyName: jobName,
-        salary: `$${salary}`,
+        companyName: `${jobName[0].toUpperCase()}${jobName.slice(1)}`,
+        position: `${position[0].toUpperCase()}${position.slice(1)}`, 
+        salary,
         earliestInterview: earliestInterview || "TBD"
     }
     jobs.push(job)
@@ -21,9 +33,8 @@ const create = (jobs, jobName, salary, earliestInterview) => {
 // show a specefic job
 const show = (jobs, jobName) => {
     const job = jobs.find(job => job.companyName === jobName)
-    return `${job.companyName} \nSalary: ${job.salary} \nEarliest interview: ${job.earliestInterview}`
+    return `${job.companyName} \nPosition: ${job.position} \nSalary: ${job.salary} \nEarliest interview: ${job.earliestInterview}`
 }
-
 
 const destroy = (jobs, jobName) => {
     const index = jobs.findIndex(job => job.companyName === jobName)
@@ -46,6 +57,9 @@ const edit = (jobs, jobName, editSection, editedValue) => {
             case "name":
                 jobs[index].companyName = editedValue
                 break;
+            case "position":
+                jobs[index].position = editedValue
+                break;
             case "salary":
                 jobs[index].salary = editedValue
                 break;
@@ -66,4 +80,4 @@ const save = (jobs,savedJobs, jobName) => {
     return savedJobs
 }
 
-module.exports = { index, create, show, destroy, edit, save }
+export { index, create, show, destroy, edit, save };

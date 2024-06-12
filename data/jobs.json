@@ -1,32 +1,37 @@
 [
   {
-    "jobId": "St5D",
-    "companyName": "Handy Dandy",
-    "salary": "$50,000",
-    "earliestInterview": "06/24/2024"
+    "jobId": "IoGr",
+    "companyName": "chicken pots",
+    "position": "General Manager",
+    "salary": "$500,000.00",
+    "earliestInterview": "07/10/2024"
   },
   {
-    "jobId": "T69q",
-    "companyName": "Fries Alive",
-    "salary": "$45,000",
-    "earliestInterview": "06/16/2024"
+    "jobId": "SGm1",
+    "companyName": "pots",
+    "position": "General Manager",
+    "salary": "$50,000.00",
+    "earliestInterview": "07//2024"
   },
   {
-    "jobId": "rO9W",
-    "companyName": "Dropping Gems",
-    "salary": "$95,000",
-    "earliestInterview": "07/01/2024"
-  },
-  {
-    "jobId": "LNdV",
+    "jobId": "oD0O",
     "companyName": "Jared Jewels",
-    "salary": "$20,000.00",
-    "earliestInterview": "tbd"
+    "position": "Cashier",
+    "salary": "$2,000,000.00",
+    "earliestInterview": "TBD"
   },
   {
-    "jobId": "2T2X",
-    "companyName": "Mcdonalds",
-    "salary": "80,000.00",
-    "earliestInterview": "10/12/2024"
+    "jobId": "l3m1",
+    "companyName": "Frosty gems",
+    "position": "Cashier",
+    "salary": "$2,000,000.00",
+    "earliestInterview": "TBD"
+  },
+  {
+    "jobId": "xMjf",
+    "companyName": "Gentle Giants",
+    "position": "Cook",
+    "salary": "$12,000.00",
+    "earliestInterview": "TBD"
   }
 ]

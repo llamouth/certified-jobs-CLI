@@ -1,4 +1,4 @@
-const { readFileSync, writeFileSync } = require("node:fs");
+import { readFileSync, writeFileSync} from "node:fs"
 
 function readJsonFile(path, fileName) {
   const collection = readFileSync(`${path}/${fileName}`, "utf8");
@@ -10,7 +10,20 @@ function writeJsonFile(path, fileName, data) {
   return writeFileSync(`${path}/${fileName}`, data, { encoding: "utf-8" });
 }
 
-module.exports = {
+// Function to format number as USD currency
+function formatToUSD(number) {
+  // Create a NumberFormat object for USD
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  // Format the number as USD currency
+  return formatter.format(number);
+}
+
+export {
   readJsonFile,
   writeJsonFile,
-};
+  formatToUSD
+}
