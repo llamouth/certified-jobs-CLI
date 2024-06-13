@@ -1,37 +1,23 @@
 [
   {
-    "jobId": "IoGr",
-    "companyName": "chicken pots",
-    "position": "General Manager",
-    "salary": "$500,000.00",
-    "earliestInterview": "07/10/2024"
+    "jobId": "EYhp",
+    "companyName": "Risky",
+    "position": "GM",
+    "salary": "$30,000.00",
+    "earliestInterview": "ASAP"
   },
   {
-    "jobId": "SGm1",
-    "companyName": "pots",
-    "position": "General Manager",
-    "salary": "$50,000.00",
-    "earliestInterview": "07//2024"
+    "jobId": "tZwS",
+    "companyName": "Gibbys",
+    "position": "Associate",
+    "salary": "$40,000.00",
+    "earliestInterview": "06/20/2024"
   },
   {
-    "jobId": "oD0O",
-    "companyName": "Jared Jewels",
-    "position": "Cashier",
-    "salary": "$2,000,000.00",
-    "earliestInterview": "TBD"
-  },
-  {
-    "jobId": "l3m1",
-    "companyName": "Frosty gems",
-    "position": "Cashier",
-    "salary": "$2,000,000.00",
-    "earliestInterview": "TBD"
-  },
-  {
-    "jobId": "xMjf",
-    "companyName": "Gentle Giants",
-    "position": "Cook",
-    "salary": "$12,000.00",
-    "earliestInterview": "TBD"
+    "jobId": "xa47",
+    "companyName": "Larry studio",
+    "position": "Enigineer",
+    "salary": "$30,000.00",
+    "earliestInterview": "asap"
   }
 ]

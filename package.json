@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "jest",
+    "start": "node index.js start",
     "index": "node index.js index",
     "create": "node index.js create",
     "show": "node index.js show",
