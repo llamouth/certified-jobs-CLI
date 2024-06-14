@@ -81,10 +81,9 @@ const edit = (jobs, jobName, editSection, editedValue) => {
 }
 
 const save = (jobs,savedJobs, jobName) => {
-    const savedJob = jobs.find(job => job.companyName.toLowerCase().trim() === jobName.toLowerCase().trim());
+    const savedJob = jobs.find(job => job.companyName.toLowerCase() === jobName.toLowerCase());
     handleSpin(savedJob)
     savedJobs.push(savedJob)
-    handleSpin(true)
     inform(index(savedJobs))
     return savedJobs
 }
