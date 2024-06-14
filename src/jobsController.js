@@ -1,19 +1,24 @@
 import { nanoid } from "nanoid";
-const inform = console.log;
-import Table from "cli-table";
-import chalk from "chalk";
-import { formatToUSD } from "./helpers.js";
 
-let table = new Table({
-    chars: {
-         'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
-           , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝', 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼', 'right': '║' , 'right-mid': '╢' , 'middle': '│' 
+import { formatToUSD } from "./helpers.js";
+import { tableGenerator } from "./tableGenerator.js";
+import { createSpinner } from "nanospinner";
+
+
+const inform = console.log;
+
+const handleSpin = (bool) => { 
+    const spin = createSpinner("Awaiting for completion...").start()
+    if(bool) {
+        spin.success({text: "Success"})
+    }else {
+        spin.error({text: "Error Try again"})
     }
-});
-table.push([chalk.blueBright("Id"), chalk.blueBright("Company"), chalk.blueBright("Position"), chalk.blueBright("Salary"), chalk.blueBright("Earliest Interview")]);
+}
 
 // shows all the jobs
 const index = (jobs) => {
+    const table = tableGenerator()
     jobs.map(job => table.push([job.jobId, job.companyName, job.position, job.salary, job.earliestInterview]));
     return table.toString();
 }
@@ -28,49 +33,48 @@ const create = (jobs, jobName, position, salary, earliestInterview) => {
         earliestInterview: earliestInterview || "TBD"
     }
     jobs.push(job)
+    inform(index(jobs))
     return jobs;
 }
 
 // show a specefic job
 const show = (jobs, jobName) => {
-    const job = jobs.find(job => job.companyName.toLowerCase() === jobName.toLowerCase())
+    const table = tableGenerator()
+    const job = jobs.find(job => job.companyName.toLowerCase().trim() === jobName.toLowerCase().trim())
     table.push([job.jobId ,job.companyName, job.position, job.salary, job.earliestInterview])
     return table.toString()
 }
 
 const destroy = (jobs, jobName) => {
-    const index = jobs.findIndex(job => job.companyName.toLowerCase() === jobName.toLowerCase())
-    if (index !== -1) {
-        jobs.splice(index, 1);
-        inform("Job successfully deleted")
-    }else {
-        inform("Job not found")
-    }
+    const jobIndex = jobs.findIndex(job => job.companyName.toLowerCase() === jobName.toLowerCase())
+    jobs.splice(jobIndex, 1)
+    handleSpin(jobIndex !== -1)
+    inform(index(jobs))
     return jobs
 }
 
 const edit = (jobs, jobName, editSection, editedValue) => {
-    const index = jobs.findIndex((job) => job.companyName.toLowerCase() === jobName.toLowerCase())
+    const jobIndex = jobs.findIndex((job) => job.companyName.toLowerCase() === jobName.toLowerCase())
     editSection = editSection.toLowerCase()
-    if(index !== -1) {
+    if(jobIndex !== -1) {
         switch(editSection) {
             case "id": 
-                jobs[index].jobId = editedValue
+                jobs[jobIndex].jobId = editedValue
                 break;
             case "name":
-                jobs[index].companyName = editedValue
+                jobs[jobIndex].companyName = editedValue
                 break;
             case "position":
-                jobs[index].position = editedValue
+                jobs[jobIndex].position = editedValue
                 break;
             case "salary":
-                jobs[index].salary = formatToUSD(editedValue)
+                jobs[jobIndex].salary = formatToUSD(editedValue)
                 break;
             case "interview":
-                jobs[index].earliestInterview = editedValue
-                break;
+                jobs[jobIndex].earliestInterview = editedValue
+                break;      
         }
-        inform("Job successfully updated", jobs)
+        inform(index(jobs))
         return jobs
     }else {
         inform("Job unsuccessfully updated")
@@ -78,14 +82,10 @@ const edit = (jobs, jobName, editSection, editedValue) => {
 }
 
 const save = (jobs,savedJobs, jobName) => {
-    const savedJob = jobs.find(job => job.companyName.toLowerCase() === jobName.toLowerCase());
-    if(savedJob) {
-        inform("Job successfully saved")
-    }else {
-        inform("job unsuccessfully saved")
-        
-    }
+    const savedJob = jobs.find(job => job.companyName.toLowerCase().trim() === jobName.toLowerCase().trim());
+    handleSpin(savedJob)
     savedJobs.push(savedJob)
+    inform(index(savedJobs))
     return savedJobs
 }
 

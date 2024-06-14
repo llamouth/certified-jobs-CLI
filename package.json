@@ -6,13 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "jest",
-    "start": "node index.js start",
-    "index": "node index.js index",
-    "create": "node index.js create",
-    "show": "node index.js show",
-    "update": "node index.js update",
-    "destroy": "node index.js destroy",
-    "save": "node index.js save"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "Larry Lamouth",
