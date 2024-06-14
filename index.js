@@ -5,7 +5,6 @@ import { index, create, show, destroy, edit, save } from "./src/jobsController.j
 import inquirer from "inquirer";
 import figlet from "figlet";
 import chalk from "chalk";
-import { tableGenerator } from "./src/tableGenerator.js";
 
 const inform = console.log;
 
@@ -229,6 +228,7 @@ const run = () => {
                 })
                 break;
             case "destroy":
+                inform(index(jobs));
                 inquirer.prompt(destroyQuestions).then(({destroyQuestions}) => {
                     updatedJobs = destroy(jobs, destroyQuestions);
                     writeJsonFile("./data", "jobs.json", updatedJobs)

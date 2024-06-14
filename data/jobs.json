@@ -14,17 +14,17 @@
     "earliestInterview": "07/12/2024"
   },
   {
-    "jobId": "xDeu",
-    "companyName": "Happy place",
-    "position": "Manager",
-    "salary": "$50,000.00",
-    "earliestInterview": "10/12/2024"
-  },
-  {
     "jobId": "qOkO",
     "companyName": "Katherines",
     "position": "General Manager",
     "salary": "$120,000.00",
     "earliestInterview": "06/14/2024"
+  },
+  {
+    "jobId": "1118",
+    "companyName": "Larrys studio",
+    "position": "GM",
+    "salary": "$200,000.00",
+    "earliestInterview": "06/20/2024"
   }
 ]

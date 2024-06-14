@@ -22,8 +22,19 @@ function formatToUSD(number) {
   return formatter.format(number);
 }
 
+function formatToProperString (str) {
+  let properString = str.split(" ")
+  if(properString.length > 1) {
+    properString = properString.map(word => `${word[0]}${word.slice(1)}`).join(" ")
+  }else {
+    properString = `${properString[0][0].toUpperCase()}${properString[0].slice(1)}`
+  }
+  return properString
+}
+
 export {
   readJsonFile,
   writeJsonFile,
-  formatToUSD
+  formatToUSD,
+  formatToProperString
 }

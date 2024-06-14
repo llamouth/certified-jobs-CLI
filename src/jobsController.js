@@ -1,10 +1,7 @@
 import { nanoid } from "nanoid";
-
-import { formatToUSD } from "./helpers.js";
+import { formatToUSD, formatToProperString } from "./helpers.js";
 import { tableGenerator } from "./tableGenerator.js";
 import { createSpinner } from "nanospinner";
-
-
 const inform = console.log;
 
 const handleSpin = (bool) => { 
@@ -27,12 +24,13 @@ const index = (jobs) => {
 const create = (jobs, jobName, position, salary, earliestInterview) => {
     const job = {
         jobId: nanoid(4),
-        companyName: `${jobName[0].toUpperCase()}${jobName.slice(1)}`,
-        position: `${position[0].toUpperCase()}${position.slice(1)}`, 
+        companyName: formatToProperString(jobName),
+        position: formatToProperString(position), 
         salary,
         earliestInterview: earliestInterview || "TBD"
     }
     jobs.push(job)
+    handleSpin(true)
     inform(index(jobs))
     return jobs;
 }
@@ -62,10 +60,10 @@ const edit = (jobs, jobName, editSection, editedValue) => {
                 jobs[jobIndex].jobId = editedValue
                 break;
             case "name":
-                jobs[jobIndex].companyName = editedValue
+                jobs[jobIndex].companyName = formatToProperString(editedValue)
                 break;
             case "position":
-                jobs[jobIndex].position = editedValue
+                jobs[jobIndex].position = formatToProperString(editedValue)
                 break;
             case "salary":
                 jobs[jobIndex].salary = formatToUSD(editedValue)
@@ -74,6 +72,7 @@ const edit = (jobs, jobName, editSection, editedValue) => {
                 jobs[jobIndex].earliestInterview = editedValue
                 break;      
         }
+        handleSpin(true)
         inform(index(jobs))
         return jobs
     }else {
@@ -85,6 +84,7 @@ const save = (jobs,savedJobs, jobName) => {
     const savedJob = jobs.find(job => job.companyName.toLowerCase().trim() === jobName.toLowerCase().trim());
     handleSpin(savedJob)
     savedJobs.push(savedJob)
+    handleSpin(true)
     inform(index(savedJobs))
     return savedJobs
 }
