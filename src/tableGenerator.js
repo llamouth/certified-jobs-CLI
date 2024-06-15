@@ -8,10 +8,8 @@ const tableGenerator = () => {
                , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝', 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼', 'right': '║' , 'right-mid': '╢' , 'middle': '│' 
         }
     });
-    table.push([chalk.blueBright("Id"), chalk.blueBright("Company"), chalk.blueBright("Position"), chalk.blueBright("Salary"), chalk.blueBright("Earliest Interview")]);
+    table.push([chalk.blueBright("Id"),chalk.blueBright("Employee"), chalk.blueBright("Company"), chalk.blueBright("Position"), chalk.blueBright("Salary"), chalk.blueBright("Earliest Interview")]);
     return table
 }
-
-
 
 export {tableGenerator}

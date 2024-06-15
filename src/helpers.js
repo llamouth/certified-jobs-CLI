@@ -1,5 +1,10 @@
 import { readFileSync, writeFileSync} from "node:fs"
 
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  process.exit(0); // Exit the process after handling the exception
+});
+
 function readJsonFile(path, fileName) {
   const collection = readFileSync(`${path}/${fileName}`, "utf8");
   return collection ? JSON.parse(collection) : [];
@@ -32,9 +37,19 @@ function formatToProperString (str) {
   return properString
 }
 
+function checkIfValidString(arr) {
+  for(const str of arr){
+    if (typeof str !== 'string' || str.length === 0) {
+      throw "Please input a valid string";
+    }
+  }
+}
+
+
 export {
   readJsonFile,
   writeJsonFile,
   formatToUSD,
-  formatToProperString
+  formatToProperString,
+  checkIfValidString
 }

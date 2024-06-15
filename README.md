@@ -16,17 +16,20 @@ Jortal is a command-line interface application designed to help you manage job r
 To install and run Jortal, you need to have [Node.js](https://nodejs.org/) installed on your machine. Follow the steps below to get started:
 
 1. Clone the repository:
+
    ```sh
    git clone <repository_url>
-   cd certified-jobs-cli
+   cd jortal-cli
 2. Install the dependencies: 
+
     ```sh 
     npm install
     ```
 ## Usage
+
 After installing the dependencies, you can start the CLI application by running: 
 ```sh
-    npm run start
+ npm start
 ```
 ## Commands 
 When you start the application, you will be prompted with serveral options: 
@@ -48,6 +51,7 @@ What would you like to do?
 ```
 
 2. #### Create a new Job
+
 ```sh
 What would you like to do?
 > create a new job
@@ -65,6 +69,7 @@ When is the earliest interview available?
 > xx/xx/xxxx <-- Format
 ```
 3. #### Show a job
+
 ```sh
 What would you like to do?
 > show a job
@@ -87,6 +92,7 @@ What is the new value?
 > 80000 (priceInCents)
 ```
 5. #### Destroy a job
+
 ```sh
 What would you like to do?
 > destroy a job
@@ -95,6 +101,7 @@ What is the name of the company you would like to destroy?
 > Example Corp
 ```
 6. #### Manage saved jobs
+
 ```sh
 What would you like to do?
 > saved jobs
@@ -111,6 +118,7 @@ What would you like to access in the save section?
 - **data/jobs.json**: JSON file containing job listings.
 - **data/savedjobs.json**: JSON file containing saved job listings.
 - **package.json**: Project metadata and dependencies.
+
 ## Dependencies
 
 - **chalk**: Terminal string styling.
