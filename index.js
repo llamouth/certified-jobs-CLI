@@ -5,7 +5,6 @@ import { index, create, show, destroy, edit, save } from "./src/jobsController.j
 import inquirer from "inquirer";
 import figlet from "figlet";
 import chalk from "chalk";
-
 const inform = console.log;
 
 
@@ -15,6 +14,7 @@ const run = () => {
 
     let updatedJobs = []
     let showSaved = false
+    
     const jobs = readJsonFile("./data", "jobs.json"); 
     const savedJobs = readJsonFile("./data", "savedJobs.json")
     const employeeNameArr = Object.keys(jobs) 
@@ -106,8 +106,9 @@ const run = () => {
         showQuestions: [
             {
                 name: "showQuestions",
-                type: "input",
+                type: "list",
                 message: "What employee yould you like to show?",
+                choices: savedJobsEmployeeNameArr
             }
         ],
         destroyQuestions: [
@@ -121,6 +122,14 @@ const run = () => {
                 ]
             }
         ],
+        savedEmployeeDestroyQuestions: [
+            {
+                name: "employee",
+                type: "list",
+                message: "Who is the employee you would like to destroy?",
+                choices: savedJobsEmployeeNameArr
+            }
+        ],
         employeeDestroyQuestions: [
             {
                 name: "employee",
@@ -129,12 +138,24 @@ const run = () => {
                 choices: employeeNameArr
             }
         ],
+        savedJobDestroyQuestions: [{
+                name: "employee",
+                type: "list",
+                message: "What employees data do you want to access?",
+                choices: savedJobsEmployeeNameArr
+            },
+            {
+                name: "job",
+                type: "input",
+                message: "What is the companys name you would like to destroy?"
+            }
+        ],
         jobDestroyQuestions: [
             {
                 name: "employee",
                 type: "list",
                 message: "What employees data do you want to access?",
-                choices: showSaved ? savedJobsEmployeeNameArr : employeeNameArr
+                choices: employeeNameArr
             },
             {
                 name: "job",
@@ -148,6 +169,29 @@ const run = () => {
                 type: "list",
                 message: "Which employee woul you like to edit?",
                 choices: employeeNameArr
+            },
+            {
+                name: "company",
+                type: "input",
+                message: "What is the name of the company you would like to edit?"
+            },
+            {
+                name: "section",
+                type: "input",
+                message: "What is the section you would like to update?"
+            },
+            {
+                name: "value",
+                type: "input",
+                message: "What would you like the new value to be?"
+            }
+        ],
+        savedUpdateQuestions: [
+            {
+                name: "employee",
+                type: "list",
+                message: "Which employee woul you like to edit?",
+                choices: savedJobsEmployeeNameArr
             },
             {
                 name: "company",
@@ -183,9 +227,9 @@ const run = () => {
         saveAJob: [
             {
                 name: "employee",
-                type: `${savedJobsEmployeeNameArr.length === 0 ? "input" : "list"}`,
+                type:  "list",
                 message: "Which employee would you like to save a job for?",
-                choices: savedJobsEmployeeNameArr
+                choices: employeeNameArr
             },
             {
                 name: "company",
@@ -206,7 +250,7 @@ const run = () => {
         ],
     }
 
-    const { startQuestions, createQuestions, employeeCreateQuestions, jobCreateQuestions, showQuestions, destroyQuestions, employeeDestroyQuestions, jobDestroyQuestions,updateQuestions, saveQuestions, saveAJob, continueQuestions } = questionObject
+    const { startQuestions, createQuestions, employeeCreateQuestions, jobCreateQuestions, showQuestions, destroyQuestions, employeeDestroyQuestions, savedJobDestroyQuestions, savedEmployeeDestroyQuestions, jobDestroyQuestions, updateQuestions, savedUpdateQuestions, saveQuestions, saveAJob, continueQuestions } = questionObject
 
     const figIt = (text) => {
         inform(chalk.blueBright(
@@ -228,11 +272,27 @@ const run = () => {
         })
     }  
 
+    const createEmployeeOrJob = (data) => {
+        if(data === "employee"){return employeeCreateQuestions}
+        if(data === "job"){return jobCreateQuestions}
+    }
+
+    const deleteEmployeeOrJob = (data, save) => {
+        if(data === "employee"){
+            if (save) {return savedEmployeeDestroyQuestions}
+            else {employeeDestroyQuestions} 
+        }else if(data === "job"){
+            if (save) {return savedJobDestroyQuestions}
+            else { return jobDestroyQuestions} 
+        }
+    }
+
     const runSavedDisplay = () => {
         inquirer.prompt(saveQuestions).then(({saveQuestions}) => {
 
             const savedAction = saveQuestions.split(" ")[0];
             let updatedSavedJobs = []
+            showSaved = true
             
             switch (savedAction) {
                 case "index":
@@ -250,7 +310,7 @@ const run = () => {
                 case "destroy":
                     inform(index(jobs));
                     inquirer.prompt(destroyQuestions).then(({decision}) => {
-                        const data = deleteEmployeeOrJob(decision)
+                        const data = deleteEmployeeOrJob(decision, saveQuestions)
                         inquirer.prompt(data).then(({employee, job})=> {
                             updatedSavedJobs = destroy(savedJobs, employee, job, data);
                             writeJsonFile("./data", "savedJobs.json", updatedSavedJobs)
@@ -260,11 +320,11 @@ const run = () => {
                     })
                     break;
                 case "update":
-                    inquirer.prompt(updateQuestions).then(({employee, company, section, value}) => {
+                    inquirer.prompt(savedUpdateQuestions).then(({employee, company, section, value}) => {
                         updatedSavedJobs = edit(savedJobs, employee, company, section, value);
                         writeJsonFile("./data", "savedjobs.json", updatedSavedJobs)
                     }).then(() => {
-                        runAgain()
+                        runAgain();
                     })
                     break;
                 case "save": 
@@ -282,15 +342,7 @@ const run = () => {
         })
     }
 
-    const createEmployeeOrJob = (data) => {
-        if(data === "employee"){return employeeCreateQuestions}
-        if(data === "job"){return jobCreateQuestions}
-    }
-
-    const deleteEmployeeOrJob = (data) => {
-        if(data === "employee"){return employeeDestroyQuestions}
-        if(data === "job"){return jobDestroyQuestions}
-    }
+ 
  
     figIt("Welcome To Jortal")
     inquirer.prompt(startQuestions).then(({start})=> {
@@ -340,8 +392,6 @@ const run = () => {
                 })
                 break;
             case "saved":
-                inform(figIt("Current Jobs"),index(savedJobs))
-                showSaved = true
                 runSavedDisplay()
                 break;   
             case "exit":

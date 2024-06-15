@@ -1,21 +1,21 @@
 {
-  "Katherine": [
-    {
-      "jobId": "LWjR",
-      "employee": "Katherine",
-      "companyName": "Jortal",
-      "position": "CEO",
-      "salary": "10000000000",
-      "earliestInterview": "asap"
-    }
-  ],
   "Larry": [
     {
       "jobId": "NOYB",
       "employee": "Larry",
       "companyName": "Jortal",
       "position": "Owner",
-      "salary": "100000000",
+      "salary": "$1,000,000.00",
+      "earliestInterview": "asap"
+    }
+  ],
+  "Scrappy": [
+    {
+      "jobId": "RCdK",
+      "employee": "Scrappy",
+      "companyName": "Jortal",
+      "position": "SWE",
+      "salary": "$200,000.00",
       "earliestInterview": "asap"
     }
   ]
