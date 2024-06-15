@@ -7,14 +7,11 @@ import figlet from "figlet";
 import chalk from "chalk";
 const inform = console.log;
 
-
-
-
 const run = () => {
 
     let updatedJobs = []
     let showSaved = false
-    
+
     const jobs = readJsonFile("./data", "jobs.json"); 
     const savedJobs = readJsonFile("./data", "savedJobs.json")
     const employeeNameArr = Object.keys(jobs) 
@@ -341,8 +338,6 @@ const run = () => {
             }
         })
     }
-
- 
  
     figIt("Welcome To Jortal")
     inquirer.prompt(startQuestions).then(({start})=> {
