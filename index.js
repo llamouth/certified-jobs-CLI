@@ -16,7 +16,9 @@ const run = () => {
     let updatedJobs = []
     let showSaved = false
     const jobs = readJsonFile("./data", "jobs.json"); 
-   
+    const savedJobs = readJsonFile("./data", "savedJobs.json")
+    const employeeNameArr = Object.keys(jobs) 
+    const savedJobsEmployeeNameArr = Object.keys(savedJobs)
 
     const questionObject = {
         startQuestions: [
@@ -50,7 +52,7 @@ const run = () => {
             {
                 name: "employee",
                 type: "input",
-                message: "What is the name of the employee you want to crate?"
+                message: "What is the name of the employee you want to create?"
             },
             {
                 name: "company",
@@ -76,8 +78,9 @@ const run = () => {
         jobCreateQuestions: [
             {
                 name: "employee",
-                type: "input",
-                message: "What is the name of the employee you want to add a job for?"
+                type: "list",
+                message: "Who is the employee you want to add a job for?",
+                choices: employeeNameArr
             },
             {
                 name: "company",
@@ -121,15 +124,17 @@ const run = () => {
         employeeDestroyQuestions: [
             {
                 name: "employee",
-                type: "input",
-                message: "Who is the employee you would like to destroy?"
+                type: "list",
+                message: "Who is the employee you would like to destroy?",
+                choices: employeeNameArr
             }
         ],
         jobDestroyQuestions: [
             {
                 name: "employee",
-                type: "input",
-                message: "What employees data do you want to access?"
+                type: "list",
+                message: "What employees data do you want to access?",
+                choices: showSaved ? savedJobsEmployeeNameArr : employeeNameArr
             },
             {
                 name: "job",
@@ -139,19 +144,25 @@ const run = () => {
         ],
         updateQuestions: [
             {
-                name: "updateQuestions",
-                type: "input",
-                message: "What is the name of the company you would like to update?"
+                name: "employee",
+                type: "list",
+                message: "Which employee woul you like to edit?",
+                choices: employeeNameArr
             },
             {
-                name: "editSection",
+                name: "company",
                 type: "input",
-                message: "What is the name of the section you would like to edit?"
+                message: "What is the name of the company you would like to edit?"
             },
             {
-                name: "editValue",
+                name: "section",
                 type: "input",
-                message: "What is the new value?"
+                message: "What is the section you would like to update?"
+            },
+            {
+                name: "value",
+                type: "input",
+                message: "What would you like the new value to be?"
             }
         ],
         saveQuestions: [
@@ -171,9 +182,15 @@ const run = () => {
         ],
         saveAJob: [
             {
-                name: "saveAJob",
+                name: "employee",
+                type: `${savedJobsEmployeeNameArr.length === 0 ? "input" : "list"}`,
+                message: "Which employee would you like to save a job for?",
+                choices: savedJobsEmployeeNameArr
+            },
+            {
+                name: "company",
                 type: "input",
-                message: "Which Job would you like to save?"
+                message: "What is the name of the company you would like to save for that employee?"
             }
         ],
         continueQuestions: [
@@ -215,7 +232,6 @@ const run = () => {
         inquirer.prompt(saveQuestions).then(({saveQuestions}) => {
 
             const savedAction = saveQuestions.split(" ")[0];
-            const savedJobs = readJsonFile("./data", "savedJobs.json")
             let updatedSavedJobs = []
             
             switch (savedAction) {
@@ -223,14 +239,6 @@ const run = () => {
                     const jobsView = index(savedJobs);
                     inform(jobsView);
                     runAgain()
-                    break;
-                case "create":
-                    inquirer.prompt(createQuestions).then(({name, position, salary, interview})=> {
-                        updatedSavedJobs = create(savedJobs, name, position, formatToUSD(salary), interview)
-                        writeJsonFile("./data", "savedjobs.json", updatedSavedJobs)
-                    }).then(() => {
-                        runAgain()
-                    })
                     break;
                 case "show":
                     inquirer.prompt(showQuestions).then(({showQuestions}) => {
@@ -240,24 +248,28 @@ const run = () => {
                     })
                     break;
                 case "destroy":
-                    inquirer.prompt(destroyQuestions).then(({decision, destroy}) => {
-                        updatedSavedJobs = destroy(savedJobs, destroyQuestions);
-                        writeJsonFile("./data", "savedjobs.json", updatedSavedJobs)
-                    }).then(() => {
-                        runAgain()
+                    inform(index(jobs));
+                    inquirer.prompt(destroyQuestions).then(({decision}) => {
+                        const data = deleteEmployeeOrJob(decision)
+                        inquirer.prompt(data).then(({employee, job})=> {
+                            updatedSavedJobs = destroy(savedJobs, employee, job, data);
+                            writeJsonFile("./data", "savedJobs.json", updatedSavedJobs)
+                        }).then(() => {
+                            runAgain()
+                        })
                     })
                     break;
                 case "update":
-                    inquirer.prompt(updateQuestions).then(({updateQuestions, editSection, editValue}) => {
-                        updatedSavedJobs = edit(savedJobs, updateQuestions, editSection, editValue);
+                    inquirer.prompt(updateQuestions).then(({employee, company, section, value}) => {
+                        updatedSavedJobs = edit(savedJobs, employee, company, section, value);
                         writeJsonFile("./data", "savedjobs.json", updatedSavedJobs)
                     }).then(() => {
                         runAgain()
                     })
                     break;
                 case "save": 
-                    inquirer.prompt(saveAJob).then(({saveAJob}) => {
-                        updatedSavedJobs =  save(jobs,savedJobs, saveAJob);
+                    inquirer.prompt(saveAJob).then(({employee, company}) => {
+                        updatedSavedJobs = save(jobs,savedJobs, employee, company);
                         writeJsonFile("./data", "savedjobs.json", updatedSavedJobs)
                     }).then(() => {
                         runAgain()
@@ -270,7 +282,7 @@ const run = () => {
         })
     }
 
-    const isEmployeeOrJob = (data) => {
+    const createEmployeeOrJob = (data) => {
         if(data === "employee"){return employeeCreateQuestions}
         if(data === "job"){return jobCreateQuestions}
     }
@@ -291,7 +303,7 @@ const run = () => {
                 break;
             case "create":
                 inquirer.prompt(createQuestions).then(({decision})=> {
-                    const data = isEmployeeOrJob(decision)
+                    const data = createEmployeeOrJob(decision)
                     inquirer.prompt(data).then(({employee, company, position, salary, interview}) => {
                         updatedJobs = create(jobs, employee, company, position, salary, interview)
                         writeJsonFile("./data", "jobs.json", updatedJobs)
@@ -320,17 +332,17 @@ const run = () => {
                 })
                 break;
             case "update":
-                inquirer.prompt(updateQuestions).then(({updateQuestions, editSection, editValue}) => {
-                    updatedJobs = edit(jobs, updateQuestions, editSection, editValue);
+                inquirer.prompt(updateQuestions).then(({employee, company, section, value}) => {
+                    updatedJobs = edit(jobs, employee, company, section, value);
                     writeJsonFile("./data", "jobs.json", updatedJobs)
                 }).then(() => {
                     runAgain()
                 })
                 break;
             case "saved":
-                inform(figIt("Current Jobs"),index(jobs))
-                runSavedDisplay()
+                inform(figIt("Current Jobs"),index(savedJobs))
                 showSaved = true
+                runSavedDisplay()
                 break;   
             case "exit":
                 figIt("Thanks for using Jortal")

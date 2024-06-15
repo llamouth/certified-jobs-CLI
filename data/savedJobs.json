@@ -1,23 +1,22 @@
-[
-  {
-    "jobId": "xa47",
-    "companyName": "Larry studio",
-    "position": "Enigineer",
-    "salary": "$30,000.00",
-    "earliestInterview": "asap"
-  },
-  {
-    "jobId": "TizQ",
-    "companyName": "Dandys",
-    "position": "cook",
-    "salary": "$50,000.00",
-    "earliestInterview": "07/12/2024"
-  },
-  {
-    "jobId": "qOkO",
-    "companyName": "Katherines",
-    "position": "General Manager",
-    "salary": "$120,000.00",
-    "earliestInterview": "06/14/2024"
-  }
-]
+{
+  "Katherine": [
+    {
+      "jobId": "LWjR",
+      "employee": "Katherine",
+      "companyName": "Jortal",
+      "position": "CEO",
+      "salary": "10000000000",
+      "earliestInterview": "asap"
+    }
+  ],
+  "Larry": [
+    {
+      "jobId": "NOYB",
+      "employee": "Larry",
+      "companyName": "Jortal",
+      "position": "Owner",
+      "salary": "100000000",
+      "earliestInterview": "asap"
+    }
+  ]
+}

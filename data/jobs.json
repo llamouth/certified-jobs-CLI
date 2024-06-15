@@ -1,11 +1,19 @@
 {
-  "Larry": [
+  "Scrappy": [
     {
-      "jobId": "B6yp",
-      "employee": "Larry",
+      "jobId": "RCdK",
+      "employee": "Scrappy",
       "companyName": "Jortal",
-      "position": "Owner",
-      "salary": "100000000",
+      "position": "SWE",
+      "salary": "$200,000.00",
+      "earliestInterview": "asap"
+    },
+    {
+      "jobId": "qnpH",
+      "employee": "Scrappy",
+      "companyName": "Nappys",
+      "position": "SWE",
+      "salary": "$1,200,000.00",
       "earliestInterview": "asap"
     }
   ]

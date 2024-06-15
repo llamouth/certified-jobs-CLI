@@ -29,7 +29,7 @@ const create = (jobs, employee, company, position, salary, earliestInterview) =>
     if(employeePresent) {
         jobs[employee].push({
             jobId: nanoid(4),
-            employee: `${formatToProperString(employee)}-${nanoid(3)}`,
+            employee: formatToProperString(employee),
             companyName: formatToProperString(company),
             position: formatToProperString(position), 
             salary: formatToUSD(salary),
@@ -42,7 +42,7 @@ const create = (jobs, employee, company, position, salary, earliestInterview) =>
                 employee,
                 companyName: formatToProperString(company),
                 position: formatToProperString(position), 
-                salary,
+                salary: formatToUSD(salary),
                 earliestInterview: earliestInterview || "TBD"
             }
         ]
@@ -73,42 +73,41 @@ const destroy = (jobs, employee, company, data) => {
     return jobs
 }
 
-const edit = (jobs, jobName, editSection, editedValue) => {
-    checkIfValidString([jobName, editSection, editedValue])
-    const jobIndex = jobs.findIndex((job) => job.companyName.toLowerCase() === jobName.toLowerCase())
-    editSection = editSection.toLowerCase()
+const edit = (jobs, employee, company, section, value) => {
+    const jobIndex = jobs[employee].findIndex((job) => job.companyName.toLowerCase() === company.toLowerCase())
     if(jobIndex !== -1) {
-        switch(editSection) {
+        switch(section) {
             case "id": 
-                jobs[jobIndex].jobId = editedValue
+                jobs[employee][jobIndex].jobId = value
                 break;
             case "name":
-                jobs[jobIndex].companyName = formatToProperString(editedValue)
+                jobs[employee][jobIndex].companyName = formatToProperString(value)
                 break;
             case "position":
-                jobs[jobIndex].position = formatToProperString(editedValue)
+                jobs[employee][jobIndex].position = formatToProperString(value)
                 break;
             case "salary":
-                jobs[jobIndex].salary = formatToUSD(editedValue)
+                jobs[employee][jobIndex].salary = formatToUSD(value)
                 break;
             case "interview":
-                jobs[jobIndex].earliestInterview = editedValue
+                jobs[employee][jobIndex].earliestInterview = value
                 break;      
         }
         handleSpin(true)
         inform(index(jobs))
         return jobs
-    }else {
+    } else {
         inform("Job unsuccessfully updated")
     }
 }
 
-const save = (jobs,savedJobs, jobName) => {
-    checkIfValidString([jobName])
-    const savedJob = jobs.find(job => job.companyName.toLowerCase() === jobName.toLowerCase());
-    savedJob.saved = true
-    handleSpin(savedJob)
-    savedJobs.push(savedJob)
+const save = (jobs,savedJobs, employee, company) => {
+    const savedJob = jobs[employee].find(job => job.companyName.toLowerCase() === company.toLowerCase());
+    if(savedJobs[employee]){
+        savedJobs[employee].push(savedJob)
+    }else{
+        savedJobs[employee] = [savedJob]
+    }
     inform(index(savedJobs))
     return savedJobs
 }
