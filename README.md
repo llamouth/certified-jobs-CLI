@@ -118,6 +118,8 @@ What would you like to access in the save section?
 - **data/jobs.json**: JSON file containing job listings.
 - **data/savedjobs.json**: JSON file containing saved job listings.
 - **package.json**: Project metadata and dependencies.
+- **sampleJobs.json**: Project sample data to test the usage
+- **sampleSavedJobs.json**: Project sample data to test the usage
 
 ## Dependencies
 
