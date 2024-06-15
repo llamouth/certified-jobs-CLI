@@ -1,10 +1,8 @@
 #!/usr/bin/env node 
 
-import {writeJsonFile, readJsonFile, formatToUSD} from "./src/helpers.js"
+import { writeJsonFile, readJsonFile, figIt } from "./src/helpers.js"
 import { index, create, show, destroy, edit, save } from "./src/jobsController.js";
 import inquirer from "inquirer";
-import figlet from "figlet";
-import chalk from "chalk";
 const inform = console.log;
 
 const run = () => {
@@ -248,12 +246,6 @@ const run = () => {
     }
 
     const { startQuestions, createQuestions, employeeCreateQuestions, jobCreateQuestions, showQuestions, destroyQuestions, employeeDestroyQuestions, savedJobDestroyQuestions, savedEmployeeDestroyQuestions, jobDestroyQuestions, updateQuestions, savedUpdateQuestions, saveQuestions, saveAJob, continueQuestions } = questionObject
-
-    const figIt = (text) => {
-        inform(chalk.blueBright(
-            figlet.textSync(text, {font: "3D-ASCII", horizontalLayout: "fitted", width: "100", whitespaceBreak: true})
-        ))
-    }
 
     const runAgain = () => {
         inquirer.prompt(continueQuestions).then(({continueQuestions}) => {

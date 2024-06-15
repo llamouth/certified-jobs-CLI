@@ -1,4 +1,6 @@
 import { readFileSync, writeFileSync} from "node:fs"
+import figlet from "figlet";
+import chalk from "chalk";
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
@@ -45,11 +47,17 @@ function checkIfValidString(arr) {
   }
 }
 
+const figIt = (str) => {
+  console.log(chalk.blueBright(
+      figlet.textSync(str, {font: "3D-ASCII", horizontalLayout: "fitted", width: "100", whitespaceBreak: true})
+  ))
+}
 
 export {
   readJsonFile,
   writeJsonFile,
   formatToUSD,
   formatToProperString,
-  checkIfValidString
+  checkIfValidString,
+  figIt
 }
