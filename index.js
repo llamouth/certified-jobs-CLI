@@ -103,9 +103,9 @@ const run = () => {
                 name: "showQuestions",
                 type: "list",
                 message: "What employee yould you like to show?",
-                choices: savedJobsEmployeeNameArr
+                choices: employeeNameArr
             }
-        ],
+        ],  
         destroyQuestions: [
             {
                 name: "decision",
@@ -117,14 +117,6 @@ const run = () => {
                 ]
             }
         ],
-        savedEmployeeDestroyQuestions: [
-            {
-                name: "employee",
-                type: "list",
-                message: "Who is the employee you would like to destroy?",
-                choices: savedJobsEmployeeNameArr
-            }
-        ],
         employeeDestroyQuestions: [
             {
                 name: "employee",
@@ -132,19 +124,7 @@ const run = () => {
                 message: "Who is the employee you would like to destroy?",
                 choices: employeeNameArr
             }
-        ],
-        savedJobDestroyQuestions: [{
-                name: "employee",
-                type: "list",
-                message: "What employees data do you want to access?",
-                choices: savedJobsEmployeeNameArr
-            },
-            {
-                name: "job",
-                type: "input",
-                message: "What is the companys name you would like to destroy?"
-            }
-        ],
+        ],   
         jobDestroyQuestions: [
             {
                 name: "employee",
@@ -219,6 +199,35 @@ const run = () => {
                 ]
             }
         ],
+        savedShowQuestions: [
+            {
+                name: "saveShow",
+                type: "list",
+                message: "What employee yould you like to show?",
+                choices: savedJobsEmployeeNameArr
+            }
+        ],
+        savedJobDestroyQuestions: [
+            {
+                name: "employee",
+                type: "list",
+                message: "What employees data do you want to access?",
+                choices: savedJobsEmployeeNameArr
+            },
+            {
+                name: "job",
+                type: "input",
+                message: "What is the companys name you would like to destroy?"
+            }
+        ],
+        savedEmployeeDestroyQuestions: [
+            {
+                name: "employee",
+                type: "list",
+                message: "Who is the employee you would like to destroy?",
+                choices: savedJobsEmployeeNameArr
+            }
+        ],
         saveAJob: [
             {
                 name: "employee",
@@ -245,7 +254,7 @@ const run = () => {
         ],
     }
 
-    const { startQuestions, createQuestions, employeeCreateQuestions, jobCreateQuestions, showQuestions, destroyQuestions, employeeDestroyQuestions, savedJobDestroyQuestions, savedEmployeeDestroyQuestions, jobDestroyQuestions, updateQuestions, savedUpdateQuestions, saveQuestions, saveAJob, continueQuestions } = questionObject
+    const { startQuestions, createQuestions, employeeCreateQuestions, jobCreateQuestions, showQuestions, savedShowQuestions,destroyQuestions, employeeDestroyQuestions, savedJobDestroyQuestions, savedEmployeeDestroyQuestions, jobDestroyQuestions, updateQuestions, savedUpdateQuestions, saveQuestions, saveAJob, continueQuestions } = questionObject
 
     const runAgain = () => {
         inquirer.prompt(continueQuestions).then(({continueQuestions}) => {
@@ -268,8 +277,9 @@ const run = () => {
 
     const deleteEmployeeOrJob = (data, save) => {
         if(data === "employee"){
+            console.log("Console log is here", data)
             if (save) {return savedEmployeeDestroyQuestions}
-            else {employeeDestroyQuestions} 
+            else { return employeeDestroyQuestions} 
         }else if(data === "job"){
             if (save) {return savedJobDestroyQuestions}
             else { return jobDestroyQuestions} 
@@ -290,8 +300,8 @@ const run = () => {
                     runAgain()
                     break;
                 case "show":
-                    inquirer.prompt(showQuestions).then(({showQuestions}) => {
-                        inform(show(savedJobs, showQuestions));
+                    inquirer.prompt(savedShowQuestions).then(({saveShow}) => {
+                        inform(show(savedJobs, saveShow));
                     }).then(() => {
                         runAgain()
                     })

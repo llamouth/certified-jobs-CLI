@@ -27,24 +27,6 @@
       "earliestInterview": "07/25/206"
     }
   ],
-  "John": [
-    {
-      "jobId": "q3dB",
-      "employee": "John",
-      "companyName": "Mcdonalds",
-      "position": "Cashier",
-      "salary": "$20,000.00",
-      "earliestInterview": "asap"
-    },
-    {
-      "jobId": "ZCiT",
-      "employee": "John",
-      "companyName": "Wendys",
-      "position": "Cashier",
-      "salary": "$20,000.00",
-      "earliestInterview": "asap"
-    }
-  ],
   "Gibby": [
     {
       "jobId": "9TcO",

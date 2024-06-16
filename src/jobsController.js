@@ -63,7 +63,10 @@ const show = (jobs, employee) => {
 
 const destroy = (jobs, employee, company, data) => {
     if(!data[1]){
-        delete jobs[employee]
+       return  Object.keys(jobs).filter(user => user !== employee).reduce((newObj, client) => {
+            newObj[client] = jobs[client]
+            return newObj
+        },{})
     }else {
         const employeeArr = jobs[employee]
         const jobIndex = employeeArr.findIndex(job => job.companyName.toLowerCase() === company.toLowerCase())
