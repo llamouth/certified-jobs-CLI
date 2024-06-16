@@ -39,14 +39,6 @@ function formatToProperString (str) {
   return properString
 }
 
-function checkIfValidString(arr) {
-  for(const str of arr){
-    if (typeof str !== 'string' || str.length === 0) {
-      throw "Please input a valid string";
-    }
-  }
-}
-
 const figIt = (str) => {
   console.log(chalk.blueBright(
       figlet.textSync(str, {font: "3D-ASCII", horizontalLayout: "fitted", width: "100", whitespaceBreak: true})
@@ -58,6 +50,5 @@ export {
   writeJsonFile,
   formatToUSD,
   formatToProperString,
-  checkIfValidString,
   figIt
 }

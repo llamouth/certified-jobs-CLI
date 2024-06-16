@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { formatToUSD, formatToProperString, checkIfValidString } from "./helpers.js";
+import { formatToUSD, formatToProperString} from "./helpers.js";
 import { tableGenerator } from "./tableGenerator.js";
 import { createSpinner } from "nanospinner";
 const inform = console.log;

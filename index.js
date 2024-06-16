@@ -10,8 +10,8 @@ const run = () => {
     let updatedJobs = []
     let showSaved = false
 
-    const jobs = readJsonFile("./data", "jobs.json"); 
-    const savedJobs = readJsonFile("./data", "savedJobs.json")
+    const jobs = readJsonFile("./data", "sampleJobs.json"); 
+    const savedJobs = readJsonFile("./data", "sampleSavedJobs.json")
     const employeeNameArr = Object.keys(jobs) 
     const savedJobsEmployeeNameArr = Object.keys(savedJobs)
 
@@ -302,7 +302,7 @@ const run = () => {
                         const data = deleteEmployeeOrJob(decision, saveQuestions)
                         inquirer.prompt(data).then(({employee, job})=> {
                             updatedSavedJobs = destroy(savedJobs, employee, job, data);
-                            writeJsonFile("./data", "savedJobs.json", updatedSavedJobs)
+                            writeJsonFile("./data", "sampleSavedJobs.json", updatedSavedJobs)
                         }).then(() => {
                             runAgain()
                         })
@@ -311,7 +311,7 @@ const run = () => {
                 case "update":
                     inquirer.prompt(savedUpdateQuestions).then(({employee, company, section, value}) => {
                         updatedSavedJobs = edit(savedJobs, employee, company, section, value);
-                        writeJsonFile("./data", "savedjobs.json", updatedSavedJobs)
+                        writeJsonFile("./data", "sampleSavedjobs.json", updatedSavedJobs)
                     }).then(() => {
                         runAgain();
                     })
@@ -319,7 +319,7 @@ const run = () => {
                 case "save": 
                     inquirer.prompt(saveAJob).then(({employee, company}) => {
                         updatedSavedJobs = save(jobs,savedJobs, employee, company);
-                        writeJsonFile("./data", "savedjobs.json", updatedSavedJobs)
+                        writeJsonFile("./data", "sampleSavedjobs.json", updatedSavedJobs)
                     }).then(() => {
                         runAgain()
                     })
@@ -345,7 +345,7 @@ const run = () => {
                     const data = createEmployeeOrJob(decision)
                     inquirer.prompt(data).then(({employee, company, position, salary, interview}) => {
                         updatedJobs = create(jobs, employee, company, position, salary, interview)
-                        writeJsonFile("./data", "jobs.json", updatedJobs)
+                        writeJsonFile("./data", "sampleJobs.json", updatedJobs)
                     }).then(() => {
                     runAgain()
                 })
@@ -364,7 +364,7 @@ const run = () => {
                     const data = deleteEmployeeOrJob(decision)
                     inquirer.prompt(data).then(({employee, job})=> {
                         updatedJobs = destroy(jobs, employee, job, data);
-                        writeJsonFile("./data", "jobs.json", updatedJobs)
+                        writeJsonFile("./data", "sampleJobs.json", updatedJobs)
                     }).then(() => {
                         runAgain()
                     })
@@ -373,7 +373,7 @@ const run = () => {
             case "update":
                 inquirer.prompt(updateQuestions).then(({employee, company, section, value}) => {
                     updatedJobs = edit(jobs, employee, company, section, value);
-                    writeJsonFile("./data", "jobs.json", updatedJobs)
+                    writeJsonFile("./data", "sampleJobs.json", updatedJobs)
                 }).then(() => {
                     runAgain()
                 })
