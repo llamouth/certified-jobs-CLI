@@ -142,7 +142,7 @@ const run = () => {
             {
                 name: "employee",
                 type: "list",
-                message: "Which employee woul you like to edit?",
+                message: "Which employee would you like to edit?",
                 choices: employeeNameArr
             },
             {

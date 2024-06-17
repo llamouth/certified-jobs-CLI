@@ -15,7 +15,7 @@
       "employee": "Larry",
       "companyName": "Jortal",
       "position": "Owner",
-      "salary": "$1,000,000.00",
+      "salary": "$1.00",
       "earliestInterview": "asap"
     },
     {
@@ -24,14 +24,22 @@
       "companyName": "Apple",
       "position": "SWE",
       "salary": "$150,000.00",
-      "earliestInterview": "07/25/206"
+      "earliestInterview": "07/25/2026"
+    },
+    {
+      "jobId": "SLPE",
+      "employee": "Larry",
+      "companyName": "Pursuit",
+      "position": "SWE",
+      "salary": "$20,000.00",
+      "earliestInterview": "asap"
     }
   ],
   "Gibby": [
     {
       "jobId": "9TcO",
       "employee": "Gibby",
-      "companyName": "Greys Solan Memorial",
+      "companyName": "Hendricks",
       "position": "Head Surgeon",
       "salary": "$500,000.00",
       "earliestInterview": "08/09/2024"
